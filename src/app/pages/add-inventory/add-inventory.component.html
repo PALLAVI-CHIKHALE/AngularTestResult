@@ -1,0 +1,90 @@
+<div class="row">
+  <div class="col-md-12 mb-4 ">
+
+    <div class="card border-0 rounded-0">
+      <div class="card-title mb-1 p-3">
+        <h5>Add Inventory</h5>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="addInvetory(inventoryForm)" #inventoryForm="ngForm">
+          <div class="row">
+            <div class="col-6">
+              <label>Inventory ID</label>
+              <input type="text" class="form-control  rounded-0" required id="idControl" #idControl="ngModel"
+                [appOnlyNumberDirective]="true" name="idControl" [(ngModel)]="inventory.inventoryID"
+                placeholder="Inventory ID" minlength="4" maxlength="5">
+              <div class="invalid-feedback" [ngStyle]="{display:idControl.invalid &&
+                  (idControl.dirty || idControl.touched || inventoryForm.submitted) ? 'block': 'none'}">
+                <div [hidden]="!idControl?.errors?.pattern">
+                  Enter valid id
+                </div>
+                <div [hidden]="!idControl?.errors?.required">
+                  <span class="fa fa-exclamation-circle"></span> Inventory ID is
+                  required
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <label>Name</label>
+              <input type="text" class="form-control  rounded-0" required id="nameControl" #nameControl="ngModel"
+                name="nameControl" [(ngModel)]="inventory.name" placeholder="Name" pattern="^[A-Za-z]+$">
+              <div class="invalid-feedback" [ngStyle]="{display:nameControl.invalid &&
+                  (nameControl.dirty || nameControl.touched || inventoryForm.submitted) ? 'block': 'none'}">
+                <div [hidden]="!nameControl?.errors?.pattern">
+                  Enter valid Name
+                </div>
+                <div [hidden]="!nameControl?.errors?.required">
+                  <span class="fa fa-exclamation-circle"></span> Name is
+                  required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row  mt-2">
+            <div class="col-12">
+              <label>Price</label>
+              <input type="text" class="form-control  rounded-0" required id="priceControl" #priceControl="ngModel"
+                name="priceControl" [(ngModel)]="inventory.price" placeholder="Price" [appOnlyNumberDirective]="true"
+                maxlength="10">
+              <div class="invalid-feedback" [ngStyle]="{display:priceControl.invalid &&
+                  (priceControl.dirty || priceControl.touched || inventoryForm.submitted) ? 'block': 'none'}">
+                <div [hidden]="!priceControl?.errors?.pattern">
+                  Enter valid Price
+                </div>
+                <div [hidden]="!priceControl?.errors?.required">
+                  <span class="fa fa-exclamation-circle"></span> Price is
+                  required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row  mt-2">
+            <div class="col-12">
+              <label>Description</label>
+              <textarea class="form-control rounded-0" rows="3" required id="descriptionControl"
+                #descriptionControl="ngModel" name="descriptionControl" [(ngModel)]="inventory.description" pattern="^[a-zA-Z0-9-]+[']*(s{0,1}[a-zA-Z0-9 -])*$"
+                placeholder="Description"></textarea>
+            </div>
+            <div class="invalid-feedback" [ngStyle]="{display:descriptionControl.invalid &&
+              (descriptionControl.dirty || descriptionControl.touched || inventoryForm.submitted) ? 'block': 'none'}">
+              <div [hidden]="!descriptionControl?.errors?.pattern">
+                Enter valid description
+              </div>
+              <div [hidden]="!descriptionControl?.errors?.required">
+                <span class="fa fa-exclamation-circle"></span> Description is
+                required
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12">
+              <button type="submit" *ngIf="currentURL.includes('/add')" class="btn btn-lightning rounded-0 mb-2 mr-2">Submit</button>
+              <button type="button" *ngIf="currentURL.includes('/edit')" class="btn btn-lightning rounded-0 mb-2 mr-2" (click)="updateInventory(inventoryForm)">Update</button>
+              <button type="reset " class="btn btn-outline-lightning rounded-0 mb-2"
+                (click)="backToDashboard(inventoryForm)">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
